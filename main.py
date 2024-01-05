@@ -2,10 +2,8 @@ from modelos.restaurante import Restaurante
 
 restaurante_mexicano = Restaurante('Mexican Food', 'Comida Mexicana')
 restaurante_mexicano.alternar_estado()
-restaurante_macarroni = Restaurante('Macarroni', 'Comida Italiana')
-restaurante_outback = Restaurante('outback', 'Comida Australiana')
-restaurante_outback.alternar_estado()
-
+restaurante_mexicano.receber_avaliacao('Valdir Silva', 6)
+restaurante_mexicano.receber_avaliacao('Julia Felix', 8)
 
 def main():
     Restaurante.listar_restaurantes()
