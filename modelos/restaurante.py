@@ -20,9 +20,9 @@ class Restaurante:
     '''Listando os restaurantes'''    
     @classmethod
     def listar_restaurantes(cls):
-        print(f'{"NOME DO RESTAURANTE".ljust(20)} | {"CATEGORIA".ljust(20)} | {"STATUS".ljust(20)}')
+        print(f'{"NOME DO RESTAURANTE".ljust(20)} | {"CATEGORIA".ljust(20)} | {"AVALIAÇÃO".ljust(20)} | {"STATUS".ljust(20)}')
         for restaurante in cls.restaurantes:
-            print(f'{restaurante._nome.ljust(20)} | {restaurante._categoria.ljust(20)} | {restaurante.ativo.ljust(20)}')
+            print(f'{restaurante._nome.ljust(20)} | {restaurante._categoria.ljust(20)} | {str(restaurante.media_avaliacao).ljust(20)} | {restaurante.ativo.ljust(20)}')
     
     '''Property'''
     '''Acessando uma propriedade da classe e definindo um retorno'''
@@ -39,4 +39,12 @@ class Restaurante:
         avaliacao = Avaliacao(cliente, nota)
         self._avaliacao.append(avaliacao)
 
- 
+    '''Realizando a media das notas do restaurante'''
+    @property
+    def media_avaliacao(self):
+        if not self._avaliacao:
+            return 0
+        somas_das_notas  = sum(avaliacao._nota for avaliacao in self._avaliacao)
+        quantidade_de_notas = len(self._avaliacao)
+        media = round(somas_das_notas/quantidade_de_notas, 1)
+        return media
