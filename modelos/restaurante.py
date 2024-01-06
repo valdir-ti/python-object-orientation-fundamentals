@@ -1,4 +1,5 @@
 from modelos.avaliacao import Avaliacao
+from modelos.cardapio.item_cardapio import ItemCardapio
 
 class Restaurante:
 
@@ -10,26 +11,27 @@ class Restaurante:
         self._categoria = categoria.upper()
         self._ativo = False
         self._avaliacao = []
+        self._cardapio = []
         Restaurante.restaurantes.append(self)
 
     '''Retorno padrão ao chamar a classe'''
     def __str__(self):
         return f'{self._nome} | {self._categoria}'
-    
+
     '''Utilizando um classmethod para acessar métodos da classe'''
-    '''Listando os restaurantes'''    
+    '''Listando os restaurantes'''
     @classmethod
     def listar_restaurantes(cls):
         print(f'{"NOME DO RESTAURANTE".ljust(25)} | {"CATEGORIA".ljust(20)} | {"AVALIAÇÃO".ljust(15)} | {"STATUS".ljust(15)}')
         for restaurante in cls.restaurantes:
             print(f'{restaurante._nome.ljust(25)} | {restaurante._categoria.ljust(20)} | {str(restaurante.media_avaliacao).ljust(15)} | {restaurante.ativo.ljust(15)}')
-    
+
     '''Property'''
     '''Acessando uma propriedade da classe e definindo um retorno'''
     @property
     def ativo(self):
         return '☑' if self._ativo else '☐'
-    
+
     '''Alternando estado'''
     def alternar_estado(self):
         self._ativo = not self._ativo
@@ -49,3 +51,8 @@ class Restaurante:
         quantidade_de_notas = len(self._avaliacao)
         media = round(somas_das_notas/quantidade_de_notas, 1)
         return media
+
+    '''Verificando se o item é do tipo itemCardapio para adiconar no cardapio'''
+    def adicionar_item_cardapio(self, item):
+        if isinstance(item,ItemCardapio):
+            self._cardapio.append(item)
